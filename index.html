@@ -11,8 +11,7 @@
 
 <script src="/js/scripts.js"></script>
 <script>
-
-
+	/*
 
 	var name = "Sofia";
 
@@ -118,7 +117,7 @@
 		if(j > 10) {
 			break;
 		}
-	}
+	}*/
 /*
 	j = 0;
 	while(j < userAdress.length) {
@@ -133,7 +132,7 @@
 	}
 	while(j < userAdress.length)
 */
-
+/*
 	var str2 = "Some TexT";
 
 	console.log(str2.length, String(345345).length);
@@ -258,67 +257,242 @@
 
 	console.log('externalSum = ', externalSum);
 
+*/
+
+	var name = "Peter";
+
+	function Person(name, age) {
+		var tmpName = name + age;
+
+		this._name = name;
+		this._age = age;
+		this.phone = {
+			country: null,
+			region: null,
+			number: null,
+		};
+		this.address = {
+			city: null,
+			street: null,
+			house: null,
+		};
+		// setPhone - метод, который принимает либо 3 параметра: код страны, города и телефон
+		// setAdsress - устанавливает адрес юзера
+		// printUser - выводить в строку все поля юзера через зпт
+
+		this.hobby = [];
+		console.log('Function Person executed for', name, this._name, this.name);
+
+		var tmpObject = {
+			userName: 'Noname',
+		};
+
+		return tmpObject;
+	}
+
+	console.log(Person('Sofi', 30));
+
+	var user1 = new Person('Andrey', 27);
+
+	console.log(user1);
 
 
-	//////////////////////////////////////////////////////////
-	// ЗАДАЧА по подсчету слов с небольшими улучшениями - повторяиющиеся операции обернуты в функцию
-	//////////////////////////////////////////////////////////
-
-	var text = ' #$##-- Uno$Dos###Tres - Quatro  Umberto,,,,, Rodrigues, Albano;$ Cavado   ###';
-	var deviders = ' ,;-=$#';
-
-
-	console.log("Total words: ", wordCounter(text, deviders));
-
-	// функция, которая считает слова, принимает в себя 2 параметра:
-	// @ строку текста, где надо подсчитать слова
-	// @ строку разделителей любой длины
-	function wordCounter(text, deviders) {
-		var wordsCounter = 0;
-		var lastDividerPosition = 0;
-
-		// внутренняя функция, которая умеет определить - является ли переданный ей символ разделителем
-		// @ строка - симпол разделитель
-		// @ строка - все разделители
-		function isDivider(needle, dev) {
-			for (var i = 0; i < dev.length; i++) {
-				if (needle === dev[i]) {
-					return true; // да, является разделителем
-				}
-			}
-			return false; // не является разделителем
-		}
-
-		for (var i = 0 ; i < text.length; i++){
-			// последовательно проверяем всю строку, если текущий символ является разделителем,
-			// тогда проваливаемся в условие и смотрим дальше
-			if (isDivider(text[i], deviders)) {
-				lastDividerPosition = i; // запоминаем позицию последнего разделителя
-
-				// в улсовие ниже мы проверяем разделители, которые идут подряд
-				if (!i || isDivider(text[i-1], deviders)) { // если текущий символя является первым в строке (т.е. нулевой индекс)
-					// ИЛИ прыдедущий символ строки является разделителем, тогда CONTINUE
-					continue; // переходим на след.шаг цикла
-				}
-				wordsCounter++; // в противном случае - закончилось слово и надо увеличить счетчик слов
-			}
-
-
-		}
-		// если позиция последнего разделителя совпадает с позицией последнего символа в строке,
-		// тогда возвращаем просто счетчик слов
-		// иначе мы должны искуственно прибавить 1 к счетчику слов, т.к. он не учитывает последнее слово,
-		// после которого нет разделителей
-		return lastDividerPosition == text.length - 1 ? wordsCounter : wordsCounter + 1;
+	function sayHellow(text) {
+		var txt = text || sayHellow.defaultText;
 		/*
-		последняя строка эквивалентна
-		if (lastDividerPosition == text.length - 1) return wordsCounter;
-		else return wordsCounter + 1;
+		if (!text) {
+			txt = sayHellow.defaultText;
+		} else {
+			txt = text;
+		} */
 
-		что в свою очередь можно упростить до:
-		if (lastDividerPosition == text.length - 1) return wordsCounter;
-		return wordsCounter + 1;
-		*/
+		console.log(txt);
+	}
+
+	sayHellow.defaultText = "Нечего сказать";
+	sayHellow.clear = function () {
+		console.clear();
+	}
+
+	/*
+	var sayHellow = {
+		defaultText: "Нечего сказать",
+		clear: function(){ console.clear(); }
+	}
+	*/
+	sayHellow.clear();
+	sayHellow("Привет мир!");
+	sayHellow();
+
+	function printUserName(fname, lname) {
+		console.log("Got user: ", fname, lname);
+		// console.log("Function arguments: ", arguments);
+		var additionalValues = '';
+		for(var i = 2; i < arguments.length; i++) {
+			additionalValues += (additionalValues ? ', ' : '') + arguments[i];
+		}
+		console.log("additional data about user: ", additionalValues);
+
+	}
+	printUserName("Sofi", "Petrova", 35, "+7-495-333-12-12", "Moscow", "Kadashevskaya nab");
+
+	window.echo = function () {
+		console.log.apply(this, arguments);
+	};
+	/*
+	function echo() {
+		//...
+	}
+	*/
+
+
+	function summy(a) {
+		var currentSum = a;
+		var parentArgs = arguments;
+
+		function f() {
+			currentSum += arguments[0];
+			return f;
+		}
+		f.toString = function() { return currentSum; }
+		return f;
+	}
+	echo('>> summy: ', summy(1)(2)(10)(15)(4)(100)(36)(19));
+	var cccc = {name: "name"}
+	// echo('>> function to string : ', cccc, summy, [1,2,3,4]);
+	var cnt = 1;
+
+	function requrstion(a, n) {
+		if(n <= 0 ) return 1;
+		echo(" >> requrstion this = ", this)
+		this.superVar = "FROM INSIDE requrstion ";
+		return a * requrstion(a, n-1);
+	}
+
+	var a = 5;
+	var b = 3;
+	echo("Возведение в степень: ", a, b, " = ", requrstion(a, b));
+	echo("superVar = ", window.superVar);
+	echo("superVar = ", superVar);
+
+
+	var studend = {
+		name: "Ilya",
+		course: 3,
+		mark: 5,
+	}
+
+	// function printStudent(friends, homeAddress) {
+	function printStudent() {
+		echo("СТУДЕНТ: ", this.name, this.course, this.mark);
+
+		var args = Array.prototype.slice.call(arguments);
+
+		echo("СТУДЕНТ: ", this.name, ' extra info: ', args.join(" - "));
+		// echo("СТУДЕНТ: ", this.name, ' extra info: ', arguments[0], arguments[1]);
+		// echo("СТУДЕНТ: ", window.studend.name, window.studend.course, window.studend.mark);
+		return true;
+	}
+
+	// printStudent();
+	echo(" NULL >> ");
+	printStudent.call(null, "Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string");
+	// var args = ["Семен, Геннадий", "ул. Ярцевская 4-6-148", 55555, "Some string"];
+
+	// printStudent.apply(studend, args);
+//*/
+	// var bindFunc = printStudent.bind(studend, "Семен, Геннадий", "ул. Ярцевская 4-6-148");
+
+	// echo("This is from bindFunc", bindFunc());
+
+
+	function makeFlat() {
+		// echo('someMy', this); 
+		let res = [];
+		this.forEach((item)=>{
+			if(Array.isArray(item)) {
+				res = res.concat(item.makeFlat())
+			} else {
+				res.push(item);
+			}
+		});
+		return res;
+	}
+
+	Array.prototype.makeFlat = makeFlat;
+
+	const ms = [1,2,3, [4,5, [6,7], 8], 9, 10];
+	console.log('ORIGINAL = ', ms);
+	console.log('RESULT = ', ms.makeFlat());
+
+
+	function calcFuctorial(n, maxTime) {
+		const startTime = Date.now();
+
+		function fn(num) {
+			if(!num) return 1;
+			const diff = Date.now() - startTime;
+			if (diff > maxTime) {
+				throw Error('Shit on me: it takes to long...');
+			}
+			return num * fn(num - 1);
+		}
+		console.log('startTime', startTime);
+
+		return fn(n);
+	}
+	// calcFuctorial(100000, 1);
+
+/*
+	try {
+		console.log('calcFuctorial ', calcFuctorial(100000, 1));
+	} catch (e) {
+		alert(e.message);
+	}
+*/
+
+	var city = {};
+	// name -
+	// age
+	// country
+	// population
+	city.name = "Moscow";
+	city.country = "Russia";
+	Object.defineProperty(city, "age", {
+		value: 880,
+		writable: true,
+		enumerable: true,
+	});
+
+	Object.defineProperty(city, "fullInfo", {
+		get: function() {
+			return "Информация по объекту: " + this.name + " " + this.country + " " + this.age;
+		},
+		set: function (val) {
+			this.age = val.age;
+			this.name = val.name;
+			this.country = val.country;
+
+		}
+	});
+
+	echo("> 1. city = ", city);
+	city.age = 50;
+	echo("> 2. city = ", city);
+	city.fullInfo = {
+		name: "Калининград",
+		age: 500,
+		country: "Russia",
+	};
+
+	echo("> 2. city Full INFO = ", city.age, city.fullInfo);
+
+
+
+
+
+	for(var key in city) {
+		echo("> 3. city, key = ", key, " value = ", city[key]);
 	}
 
 </script>
